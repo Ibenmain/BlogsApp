@@ -1,11 +1,11 @@
 'use client'
+import React from 'react'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
 import Add from "@/public/add.svg"
 import Remove from "@/public/remove.svg"
 import Show from "@/public/show.svg"
-import Modal from '../../components/modal/Modal'
 import {ft_slice, list} from '@/utils/utils'
+import { removeBlog } from '@/actions/handelAction'
 
 
 
@@ -29,26 +29,7 @@ const Discription = () => {
         </div>
         <div className='container w-full h-full overflow-auto'>
           <div className='container mx-auto max-w-[1000px] p-4 '>
-            {
-              list.map((item) => (
-                <div key={item.index} className=' p-2  '>
-                  <div className='flex flex-row justify-between '>
-                    <div className='font-bold text-lg'>
-                      {item.index}-{item.name}
-                      <p className='pl-4 font-normal text-md'> {ft_slice(str)}</p>
-                    </div>
-                    <div className='flex flex-row '>
-                      <button className=' flex justify-start '>
-                        <Image className='w-[90px] sm:w-[60px] h-6 ' src={Remove} alt='icon not found' />
-                      </button>
-                      <button className=' flex justify-start '>
-                        <Image className='w-[90px] sm:w-[60px] h-6 ' src={Show} alt='icon not found' />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))
-            }
+            discription
           </div>
         </div>
       </div>

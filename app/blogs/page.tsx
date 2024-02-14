@@ -5,17 +5,27 @@ import Add from "@/public/add.svg"
 import Remove from "@/public/remove.svg"
 import Show from "@/public/show.svg"
 import Modal from '../../components/modal/Modal'
-import { ft_slice, list } from '@/utils/utils'
+import { Blog, ft_slice } from '@/utils/utils'
+import { getAllBlogs, removeBlog } from '@/actions/handelAction'
 
 const Blogs = () => {
-
+  const [blogs, setBlogs] = useState<Blog[]>([])
   const [isopen, setIsopen] = useState<boolean>(false);
 
+  useEffect(() => {
+    getAllBlogs().then((data) =>
+      setBlogs(data)
+    ).catch((err) => {
+      setBlogs([]);
+    });
+  }, [])
 
-  const str = "The key to more success is to have a lot of pillows. Put it this way, it took me twenty five years to get these plants";
+  const handelRemove = (id: string) => {
+    removeBlog(id);
+  }
 
   return (
-    <main className='flex justify-center items-center w-screen h-screen bg-custom-image bg-cover bg-center  relative p-4 '>
+    <main className='flex justify-center items-center w-screen h-screen bg-custom-image bg-cover bg-center relative p-4'>
       <div className='flex justify-center items-center bg-[#E4DFDF] absolute w-full h-full opacity-90 blur-[2px] '>
       </div>
       <div className='z-10 w-[600px] lg:w-1/2 lg:min-w-[900px] h-full rounded-2xl flex justify-center items-center flex-col bg-[#FBF7F7] '>
@@ -30,18 +40,18 @@ const Blogs = () => {
         <div className='container w-full h-full overflow-auto'>
           <div className='container mx-auto max-w-[1000px] p-4 '>
             {
-              list.map((item) => (
-                <div key={item.index} className=' p-2  '>
+              blogs.map((item) => (
+                <div key={item.id} className=' p-2  '>
                   <div className='flex flex-row justify-between '>
                     <div className='font-bold text-lg'>
-                      {item.index}-{item.name}
-                      <p className='pl-4 font-normal text-md'> {ft_slice(str)}</p>
+                      {item.title}
+                      <p className='pl-4 font-normal text-md'> {ft_slice(item.content)}</p>
                     </div>
                     <div className='flex flex-row '>
-                      <button className=' flex justify-start '>
+                      <button onClick={() => handelRemove(item.id)} className='flex justify-start'>
                         <Image className='w-[90px] sm:w-[60px] h-6 ' src={Remove} alt='icon not found' />
                       </button>
-                      <button className=' flex justify-start '>
+                      <button className='flex justify-start'>
                         <Image className='w-[90px] sm:w-[60px] h-6 ' src={Show} alt='icon not found' />
                       </button>
                     </div>
