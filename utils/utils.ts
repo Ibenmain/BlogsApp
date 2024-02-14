@@ -16,3 +16,10 @@ export const list = [
     { index: 2, name: "basketBall" },
     { index: 3, name: "vollyeBall" },
 ]
+
+export type ModalProps = {
+    isopen: boolean;
+    setIsopen: React.Dispatch<React.SetStateAction<boolean>>
+    setUpdate: React.Dispatch<React.SetStateAction<boolean>>
+  }
+  

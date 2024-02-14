@@ -11,6 +11,7 @@ import { getAllBlogs, removeBlog } from '@/actions/handelAction'
 const Blogs = () => {
   const [blogs, setBlogs] = useState<Blog[]>([])
   const [isopen, setIsopen] = useState<boolean>(false);
+  const [update, setUpdate] = useState<boolean>(false);
 
   useEffect(() => {
     getAllBlogs().then((data) =>
@@ -18,7 +19,7 @@ const Blogs = () => {
     ).catch((err) => {
       setBlogs([]);
     });
-  }, [])
+  }, [update, setUpdate])
 
   const handelRemove = (id: string) => {
     removeBlog(id);
@@ -62,7 +63,7 @@ const Blogs = () => {
           </div>
         </div>
       </div>
-      <Modal isopen={isopen} setIsopen={setIsopen} />
+      <Modal setUpdate={setUpdate} isopen={isopen} setIsopen={setIsopen} />
     </main>
   )
 }

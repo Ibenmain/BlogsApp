@@ -4,11 +4,9 @@ import { z } from "zod";
 import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, } from "@material-tailwind/react";
 import { title } from "process";
 import { Content } from "next/font/google";
+import { addBlock } from "@/actions/handelAction";
+import { ModalProps } from "@/utils/utils";
 
-export type ModalProps = {
-  isopen: boolean;
-  setIsopen: React.Dispatch<React.SetStateAction<boolean>>
-}
 
 const schema = z.object({
   title: z.string().min(3).max(50),
@@ -18,11 +16,16 @@ const schema = z.object({
 const Modal = ({ isopen, setIsopen }: ModalProps) => {
 
   const handleOpen = () => setIsopen(!isopen);
+
   const [data, setData] = useState({
     title: "",
     content: "",
   });
+
   const handleAdd = () => {
+    schema.parse(data);
+    addBlock(data.title, data.content);
+    setIsopen(!isopen);
   }
 
   const handleChange = (event: any) => {
