@@ -1,22 +1,40 @@
 'use client'
-import React from "react";
+import React, { useState } from "react";
 import { z } from "zod";
 import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, } from "@material-tailwind/react";
+import { title } from "process";
+import { Content } from "next/font/google";
 
 export type ModalProps = {
   isopen: boolean;
   setIsopen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+const schema = z.object({
+  title: z.string().min(3).max(50),
+  content: z.string(),
+});
+
 const Modal = ({ isopen, setIsopen }: ModalProps) => {
 
   const handleOpen = () => setIsopen(!isopen);
-  const handleAdd = () => { 
+  const [data, setData] = useState({
+    title: "",
+    content: "",
+  });
+  const handleAdd = () => {
   }
 
-  const handleChange = (event: string) => {
-
+  const handleChange = (event: any) => {
+    const { name, value } = event.target;
+    setData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   }
+
+  console.log("data : ", data);
+
   const emptyHandler = () => { }
 
   return (
@@ -24,8 +42,8 @@ const Modal = ({ isopen, setIsopen }: ModalProps) => {
       <DialogHeader className="flex justify-center" placeholder={""}>Add new Blog</DialogHeader>
       <DialogBody placeholder={""}>
         <form action="" className="flex flex-col space-y-10">
-          <input className=" border rounded-md  p-2 h-14" type="text" placeholder="title"  onChange={() => handleChange}/>
-          <textarea rows={0} className=" border rounded-md p-2 h-72" placeholder="discription"  onChange={() => handleChange}/>
+          <input className=" border rounded-md  p-2 h-14" type="text" placeholder="title" name="title" onChange={handleChange} />
+          <textarea rows={0} className=" border rounded-md p-2 h-72" placeholder="discription" name="content" onChange={handleChange} />
           {/* <input className=" border rounded-md p-2 h-14" type="date" placeholder=""  onChange={() => handleChange}/> */}
         </form>
       </DialogBody>
