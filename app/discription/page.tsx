@@ -5,12 +5,12 @@ import Add from "@/public/add.svg"
 import Remove from "@/public/remove.svg"
 import Show from "@/public/show.svg"
 import Modal from '../../components/modal/Modal'
-import { ft_slice, list } from '@/utils/utils'
+import {ft_slice, list} from '@/utils/utils'
 
-const Blogs = () => {
 
-  const [isopen, setIsopen] = useState<boolean>(false);
 
+
+const Discription = () => {
 
   const str = "The key to more success is to have a lot of pillows. Put it this way, it took me twenty five years to get these plants";
 
@@ -22,7 +22,7 @@ const Blogs = () => {
         <h1 className='font-bold text-[40px] sm:text-[50px] flex justify-center items-center p-10'>Blog App</h1>
         <div className='w-full flex justify-center items-center'> <div className='border w-[90%]'></div></div>
         <div className=' flex justify-center items-center p-10 space-x-2'>
-          <button onClick={() => setIsopen(!isopen)} >
+          <button >
             <Image src={Add} alt='image not found' />
           </button>
           <h1 className='font-bold text-[20px] '>Add New Blog</h1>
@@ -52,9 +52,8 @@ const Blogs = () => {
           </div>
         </div>
       </div>
-      <Modal isopen={isopen} setIsopen={setIsopen} />
     </main>
   )
 }
 
-export default Blogs
+export default Discription

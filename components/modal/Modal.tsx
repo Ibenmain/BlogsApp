@@ -1,18 +1,25 @@
+'use client'
+import React from "react";
 import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, } from "@material-tailwind/react";
 
-const Modal = (props: { isopen: boolean, setIsopen: Function }) => {
+export type ModalProps = {
+  isopen: boolean;
+  setIsopen: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-  const handleOpen = () => props.setIsopen(!props.isopen);
+const Modal = ({ isopen, setIsopen }: ModalProps) => {
+
+  const handleOpen = () => setIsopen(!isopen);
   const emptyHandler = () => { }
 
   return (
-    <Dialog open={props.isopen} placeholder={""} handler={emptyHandler} >
+    <Dialog size="lg" open={isopen} placeholder={""} handler={emptyHandler} >
       <DialogHeader className="flex justify-center" placeholder={""}>Add new Blog</DialogHeader>
       <DialogBody placeholder={""}>
         <form action="" className="flex flex-col space-y-10">
-          <input className=" border rounded-md  p-2" type="text" placeholder="title" />
-          <textarea rows={0} className=" border rounded-md p-2 h-20" placeholder="discription" />
-          <input className=" border rounded-md p-2" type="date" placeholder="" />
+          <input className=" border rounded-md  p-2 h-14" type="text" placeholder="title" />
+          <textarea rows={0} className=" border rounded-md p-2 h-72" placeholder="discription" />
+          <input className=" border rounded-md p-2 h-14" type="date" placeholder="" />
         </form>
       </DialogBody>
       <DialogFooter placeholder={""}>
