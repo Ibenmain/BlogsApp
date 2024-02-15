@@ -22,17 +22,16 @@ const Modal = ({ isopen, setIsopen, update, setUpdate }: ModalProps) => {
   });
 
   const handleAdd = async () => {
-    console.log('dataa: ', data);
     const ok = schema.safeParse(data);
     if (!ok.success)
-      toast.error('Invalid input');
+      toast.error('Invalid input!');
     else
     {
       const ret = await addBlock(data);
       if (ret === true)
-        toast.success('add');
+        toast.success('Successfully added!');
       else
-        toast.error('Invalid input');
+        toast.error('Invalid input!');
     }
     setData({ title: "", content: "" });
     setIsopen(!isopen);
@@ -50,7 +49,7 @@ const Modal = ({ isopen, setIsopen, update, setUpdate }: ModalProps) => {
 
   return (
     <Dialog size="md" open={isopen} placeholder={""} handler={() => { }} >
-      <DialogHeader className="flex justify-center" placeholder={""}>Add new Blog</DialogHeader>
+      <DialogHeader className="flex justify-center" placeholder={""}>Add new blog</DialogHeader>
       <DialogBody placeholder={""}>
         <form action="" className="flex flex-col space-y-10">
           <input className=" border rounded-md  p-2 h-14" type="text" placeholder="title" name="title" onChange={handleChange} />
