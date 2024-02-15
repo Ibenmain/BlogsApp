@@ -37,7 +37,7 @@ const Description = ({ params }: { params: { id: string } }) => {
           </button>
           <div className=' flex flex-row w-full justify-between'>
             <h1 className='font-bold text-[20px] '>{blog?.title}</h1>
-            <h1 className='font-bold text-[20px] '>Data: {formatDate(blog?.createdAt)} </h1>
+            <h1 className='font-bold text-[20px] '>Created at: {formatDate(blog?.createdAt)} </h1>
           </div>
         </div>
         <div className='container w-full h-full overflow-auto'>

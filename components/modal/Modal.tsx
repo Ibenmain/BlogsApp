@@ -14,7 +14,10 @@ export const schema = z.object({
 
 const Modal = ({ isopen, setIsopen, update, setUpdate }: ModalProps) => {
 
-  const handleOpen = () => setIsopen(!isopen);
+  const handleCancel = () => {
+    setIsopen(!isopen); 
+    setData({ title: "", content: "" });
+  }
 
   const [data, setData] = useState<z.infer<typeof schema>>({
     title: "",
@@ -25,8 +28,7 @@ const Modal = ({ isopen, setIsopen, update, setUpdate }: ModalProps) => {
     const ok = schema.safeParse(data);
     if (!ok.success)
       toast.error('Invalid input!');
-    else
-    {
+    else {
       const ret = await addBlock(data);
       if (ret === true)
         toast.success('Successfully added!');
@@ -36,7 +38,7 @@ const Modal = ({ isopen, setIsopen, update, setUpdate }: ModalProps) => {
     setData({ title: "", content: "" });
     setIsopen(!isopen);
     setUpdate(!update);
-    
+
   }
 
   const handleChange = (event: any) => {
@@ -57,7 +59,7 @@ const Modal = ({ isopen, setIsopen, update, setUpdate }: ModalProps) => {
         </form>
       </DialogBody>
       <DialogFooter placeholder={""}>
-        <Button placeholder={""} variant="text" color="red" onClick={handleOpen} className="mr-1" >
+        <Button placeholder={""} variant="text" color="red" onClick={handleCancel} className="mr-1" >
           <span>Cancel</span>
         </Button>
         <Button placeholder={""} variant="gradient" color="green" onClick={handleAdd}>

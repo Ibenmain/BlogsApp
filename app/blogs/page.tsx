@@ -5,10 +5,11 @@ import Add from "@/public/add.svg"
 import Remove from "@/public/remove.svg"
 import Show from "@/public/show.svg"
 import Modal from '../../components/modal/Modal'
-import { Blog, ft_slice } from '@/utils/utils'
+import { Blog, formatDate, ft_slice } from '@/utils/utils'
 import { getAllBlogs, removeBlog } from '@/actions/handelAction'
 import { useRouter } from 'next/navigation'
 import toast, { Toaster } from 'react-hot-toast'
+import { Tooltip as ReactTooltip, Tooltip } from 'react-tooltip'
 
 const Blogs = () => {
 
@@ -56,24 +57,27 @@ const Blogs = () => {
           </button>
         </div>
         <div className='container w-full h-full overflow-auto'>
+          <Tooltip className='z-50' id="my-tooltip-inline" style={{ backgroundColor: "#ffffff", color: "#000000" }} />
           <div className='container mx-auto max-w-[1020px] p-4 '>
             {
               blogs.map((item) => (
                 <div key={item.id} className='p-4 '>
-                  <div className='flex flex-row justify-between  border rounded-3xl p-4 shadow-orange-50 shadow-2xl transform transition duration-300 ease-in-out hover:scale-105 '>
-                    <div className='font-bold text-xl'>
-                      <h1>{item.title}</h1>
-                      <p className='pl-4 font-normal text-md'> {ft_slice(item.content)}</p>
+                  <a data-tooltip-id="my-tooltip-inline" data-tooltip-content={`Created at ${formatDate(item.createdAt)}`}>
+                    <div data-tooltip-target="tooltip-default" className='flex flex-row justify-between  border rounded-3xl p-4 shadow-orange-50 shadow-2xl transform transition duration-300 ease-in-out hover:scale-105 '>
+                      <div className='font-bold text-xl'>
+                        <h1>{item.title}</h1>
+                        <p className='pl-4 font-normal text-md'> {ft_slice(item.content)}</p>
+                      </div>
+                      <div className='flex flex-row space-x-3'>
+                        <button onClick={() => handelRemove(item.id)} className='flex justify-start w-[25px] rounded-full items-center '>
+                          <Image className='w-[25px] ' src={Remove} alt='icon not found' />
+                        </button>
+                        <button onClick={() => handelDetail(item.id)} className='flex justify-start w-[25px]  rounded-full items-center '>
+                          <Image className='w-[25px] ' src={Show} alt='icon not found' />
+                        </button>
+                      </div>
                     </div>
-                    <div className='flex flex-row space-x-3'>
-                      <button onClick={() => handelRemove(item.id)} className='flex justify-start w-[25px] rounded-full items-center '>
-                        <Image className='w-[25px] ' src={Remove} alt='icon not found' />
-                      </button>
-                      <button onClick={() => handelDetail(item.id)} className='flex justify-start w-[25px]  rounded-full items-center '>
-                        <Image className='w-[25px] ' src={Show} alt='icon not found' />
-                      </button>
-                    </div>
-                  </div>
+                  </a>
                 </div>
               ))
             }
