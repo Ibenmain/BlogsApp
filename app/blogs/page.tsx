@@ -51,7 +51,7 @@ const Blogs = () => {
         <div className='w-full flex justify-center items-center'> <div className='border w-[90%]'></div></div>
         <div className=' '>
           <button className='flex justify-center items-center p-10 space-x-2' onClick={() => setIsopen(!isopen)} >
-            <Image src={Add} alt='image not found' />
+            <Image className='w-[25px]' src={Add} alt='image not found' />
             <h1 className='font-bold text-[25px] '>Add New Blog</h1>
           </button>
         </div>
