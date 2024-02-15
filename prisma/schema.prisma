@@ -13,4 +13,4 @@ model Blog {
   title     String
   content   String
   createdAt DateTime  @default(now())
-} 
+}

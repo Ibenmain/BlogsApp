@@ -1,19 +1,17 @@
 'use client'
-import React, { useState } from "react";
 import { z } from "zod";
-import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, } from "@material-tailwind/react";
-import { title } from "process";
-import { Content } from "next/font/google";
+import React, { useState } from "react";
 import { addBlock } from "@/actions/handelAction";
 import { ModalProps } from "@/utils/utils";
+import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, } from "@material-tailwind/react";
 
 
 const schema = z.object({
-  title: z.string().min(3).max(50),
+  title: z.string().min(3, { message: "dhjsjsdhjd" }).max(50, { message: "dsdssddssddsds" }),
   content: z.string(),
 });
 
-const Modal = ({ isopen, setIsopen }: ModalProps) => {
+const Modal = ({ isopen, setIsopen, update, setUpdate }: ModalProps) => {
 
   const handleOpen = () => setIsopen(!isopen);
 
@@ -23,9 +21,16 @@ const Modal = ({ isopen, setIsopen }: ModalProps) => {
   });
 
   const handleAdd = () => {
-    schema.parse(data);
+    // try{
+    // }catch(err){
+    //   console.log(err);
+    // }
+    // schema.parse(data);
+    // console.log("herer : ", data.title, data.content);
     addBlock(data.title, data.content);
+    // console.log("111 : ", data.title, data.content);
     setIsopen(!isopen);
+    setUpdate(!update);
   }
 
   const handleChange = (event: any) => {
@@ -36,18 +41,13 @@ const Modal = ({ isopen, setIsopen }: ModalProps) => {
     }));
   }
 
-  console.log("data : ", data);
-
-  const emptyHandler = () => { }
-
   return (
-    <Dialog size="lg" open={isopen} placeholder={""} handler={emptyHandler} >
+    <Dialog size="lg" open={isopen} placeholder={""} handler={() => { }} >
       <DialogHeader className="flex justify-center" placeholder={""}>Add new Blog</DialogHeader>
       <DialogBody placeholder={""}>
         <form action="" className="flex flex-col space-y-10">
           <input className=" border rounded-md  p-2 h-14" type="text" placeholder="title" name="title" onChange={handleChange} />
           <textarea rows={0} className=" border rounded-md p-2 h-72" placeholder="discription" name="content" onChange={handleChange} />
-          {/* <input className=" border rounded-md p-2 h-14" type="date" placeholder=""  onChange={() => handleChange}/> */}
         </form>
       </DialogBody>
       <DialogFooter placeholder={""}>
