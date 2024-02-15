@@ -6,4 +6,4 @@ declare global {
 }
 
 // Create a database client instance by assigning 'db' to the global.prisma variable if it exists, otherwise create a new instance of PrismaClient
-export const db = global.prisma || new PrismaClient();
+export const db = globalThis.prisma || new PrismaClient();
