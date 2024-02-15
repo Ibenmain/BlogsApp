@@ -18,28 +18,22 @@ const Blogs = () => {
   const [update, setUpdate] = useState<boolean>(false);
 
   useEffect(() => {
-    getAllBlogs().then((data) =>
-      setBlogs(data)
+    getAllBlogs().then((data) => {
+      setBlogs(data);
+    }
     ).catch((err) => {
       setBlogs([]);
+      toast.error("Error!");
     });
-    ft_tost();
-  }, [update, setUpdate])
-
-  const ft_tost = () => {
-    if (update === true)
-    {
-      toast.success('Successfully added!');
-      setUpdate(!update);
-    }
-  }
-  console.log(update);
+  }, [update])
 
   const handelRemove = (id: string) => {
     setUpdate(!update);
-    removeBlog(id);
-    
-    toast.success('Successfully removed!');
+    removeBlog(id).then(() => {
+      toast.success('Successfully removed!');
+    }).catch(() => {
+      toast.error("Error!");
+    });
   }
 
   const handelDetail = (id: string) => {
@@ -55,28 +49,28 @@ const Blogs = () => {
           <h1 className=' text-[#341212] h-28 flex justify-center items-center bg-[#dfdada] w-64 rounded-full'>Blog App</h1>
         </div>
         <div className='w-full flex justify-center items-center'> <div className='border w-[90%]'></div></div>
-        <div className=' flex justify-center items-center p-10 space-x-2'>
-          <button onClick={() => setIsopen(!isopen)} >
+        <div className=' '>
+          <button className='flex justify-center items-center p-10 space-x-2' onClick={() => setIsopen(!isopen)} >
             <Image src={Add} alt='image not found' />
+            <h1 className='font-bold text-[25px] '>Add New Blog</h1>
           </button>
-          <h1 className='font-bold text-[25px] '>Add New Blog</h1>
         </div>
         <div className='container w-full h-full overflow-auto'>
           <div className='container mx-auto max-w-[1020px] p-4 '>
             {
               blogs.map((item) => (
-                <div key={item.id} className=' p-2 pl-2 pr-2 '>
-                  <div className='flex flex-row justify-between border rounded-3xl p-4 shadow-orange-50 shadow-2xl transform transition duration-300 ease-in-out hover:scale-105 '>
+                <div key={item.id} className='p-4 '>
+                  <div className='flex flex-row justify-between  border rounded-3xl p-4 shadow-orange-50 shadow-2xl transform transition duration-300 ease-in-out hover:scale-105 '>
                     <div className='font-bold text-xl'>
-                      {item.title}
+                      <h1>{item.title}</h1>
                       <p className='pl-4 font-normal text-md'> {ft_slice(item.content)}</p>
                     </div>
-                    <div className='flex flex-row '>
-                      <button  onClick={() => handelRemove(item.id)} className='flex justify-start rounded-full items-center hover:bg-[#f1eded] '>
-                        <Image className='w-[90px] sm:w-[60px] h-6 ' src={Remove} alt='icon not found' />
+                    <div className='flex flex-row space-x-3'>
+                      <button onClick={() => handelRemove(item.id)} className='flex justify-start w-[25px] rounded-full items-center '>
+                        <Image className='w-[25px] ' src={Remove} alt='icon not found' />
                       </button>
-                      <button onClick={() => handelDetail(item.id)} className='flex justify-start rounded-full items-center hover:bg-[#f1eded] '>
-                        <Image className='w-[90px] sm:w-[60px] h-6 ' src={Show} alt='icon not found' />
+                      <button onClick={() => handelDetail(item.id)} className='flex justify-start w-[25px]  rounded-full items-center '>
+                        <Image className='w-[25px] ' src={Show} alt='icon not found' />
                       </button>
                     </div>
                   </div>

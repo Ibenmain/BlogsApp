@@ -4,33 +4,40 @@ import React, { useState } from "react";
 import { addBlock } from "@/actions/handelAction";
 import { ModalProps } from "@/utils/utils";
 import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, } from "@material-tailwind/react";
+import toast from "react-hot-toast";
 
 
-const schema = z.object({
-  title: z.string().min(3, { message: "dhjsjsdhjd" }).max(50, { message: "dsdssddssddsds" }),
-  content: z.string(),
+export const schema = z.object({
+  title: z.string().min(1, { message: "Empty Title" }).max(50, { message: "invalid input" }),
+  content: z.string().min(1, { message: "Empty Content" }),
 });
 
 const Modal = ({ isopen, setIsopen, update, setUpdate }: ModalProps) => {
 
   const handleOpen = () => setIsopen(!isopen);
 
-  const [data, setData] = useState({
+  const [data, setData] = useState<z.infer<typeof schema>>({
     title: "",
     content: "",
   });
 
-  const handleAdd = () => {
-    // try{
-    // }catch(err){
-    //   console.log(err);
-    // }
-    // schema.parse(data);
-    // console.log("herer : ", data.title, data.content);
-    addBlock(data.title, data.content);
-    // console.log("111 : ", data.title, data.content);
+  const handleAdd = async () => {
+    console.log('dataa: ', data);
+    const ok = schema.safeParse(data);
+    if (!ok.success)
+      toast.error('Invalid input');
+    else
+    {
+      const ret = await addBlock(data);
+      if (ret === true)
+        toast.success('add');
+      else
+        toast.error('Invalid input');
+    }
+    setData({ title: "", content: "" });
     setIsopen(!isopen);
     setUpdate(!update);
+    
   }
 
   const handleChange = (event: any) => {
@@ -42,7 +49,7 @@ const Modal = ({ isopen, setIsopen, update, setUpdate }: ModalProps) => {
   }
 
   return (
-    <Dialog size="lg" open={isopen} placeholder={""} handler={() => { }} >
+    <Dialog size="md" open={isopen} placeholder={""} handler={() => { }} >
       <DialogHeader className="flex justify-center" placeholder={""}>Add new Blog</DialogHeader>
       <DialogBody placeholder={""}>
         <form action="" className="flex flex-col space-y-10">

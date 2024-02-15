@@ -25,7 +25,6 @@ To get started with the development environment and dependencies, please follow 
 
 Clone the repository: git clone <repository-url>
 Navigate to the project directory: cd <project-directory>
-Install dependencies: ``` npm install ```
-Start the development server: ``` npm run dev ```
+Use command Make to simplify installation of the package and migration prisma-client
 Visit [http://localhost:3000](http://localhost:3000) to interact with the blog application.
 

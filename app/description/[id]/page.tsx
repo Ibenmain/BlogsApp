@@ -18,8 +18,6 @@ const Description = ({ params }: { params: { id: string } }) => {
     });
   }, [params.id])
 
-  console.log(blog);
-
   const handelChange = () => {
     router.push("/blogs");
   }
@@ -29,7 +27,9 @@ const Description = ({ params }: { params: { id: string } }) => {
       <div className='flex justify-center items-center bg-[#E4DFDF] absolute w-full h-full opacity-90 blur-[2px] '>
       </div>
       <div className='z-10 w-[600px] lg:w-1/2 lg:min-w-[900px] h-full rounded-2xl flex justify-center items-center flex-col bg-[#FBF7F7] '>
-        <h1 className='font-bold text-[40px] sm:text-[50px] flex justify-center items-center p-10'>Blog App</h1>
+      <div className='font-bold text-[40px] sm:text-[40px] flex justify-center items-center p-4  '>
+          <h1 className=' text-[#341212] h-28 flex justify-center items-center bg-[#dfdada] w-64 rounded-full'>Blog App</h1>
+        </div>
         <div className='w-full flex justify-center items-center'> <div className='border w-[90%]'></div></div>
         <div className=' flex justify-center items-center p-10 space-x-2 w-full'>
           <button onClick={handelChange} >
