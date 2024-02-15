@@ -25,6 +25,7 @@ To get started with the development environment and dependencies, please follow 
 
 Clone the repository: git clone `repository-url`
 Navigate to the project directory: cd `repository-url`
+before running command make copy the content of the env.example in the new .env file  
 Use command Make to simplify installation of the package and migration prisma-client
 Visit [http://localhost:3000](http://localhost:3000) to interact with the blog application.
 
