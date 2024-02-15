@@ -23,8 +23,8 @@ Utilize React's state management hooks for data manipulation.
 # Getting Started
 To get started with the development environment and dependencies, please follow these steps:
 
-Clone the repository: git clone <repository-url>
-Navigate to the project directory: cd <project-directory>
+Clone the repository: git clone `repository-url`
+Navigate to the project directory: cd `repository-url`
 Use command Make to simplify installation of the package and migration prisma-client
 Visit [http://localhost:3000](http://localhost:3000) to interact with the blog application.
 
